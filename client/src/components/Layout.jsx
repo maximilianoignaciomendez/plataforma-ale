@@ -26,7 +26,7 @@ export default function Layout({ moduleKey, children }) {
       <header className="topbar">
         <div className="topbar-brand">
           <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
-            PLATAFORMA ALE
+            SIGMAX360
             <small>Producción · Logística y Mantenimiento · SIG</small>
           </Link>
         </div>

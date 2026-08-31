@@ -32,7 +32,7 @@ export default function Login() {
           <span className="login-dot" style={{ background: "var(--logistica)" }} />
           <span className="login-dot" style={{ background: "var(--sig)" }} />
         </div>
-        <h1>Plataforma Ale</h1>
+        <h1>SigMax360</h1>
         <p>Producción · Logística y Mantenimiento · SIG</p>
 
         {error && <div className="login-error">{error}</div>}

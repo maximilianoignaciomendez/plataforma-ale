@@ -46,5 +46,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Plataforma Ale API escuchando en http://localhost:${PORT}`);
+  console.log(`SigMax360 API escuchando en http://localhost:${PORT}`);
 });

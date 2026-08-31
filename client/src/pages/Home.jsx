@@ -19,7 +19,7 @@ export default function Home() {
       <div style={{ maxWidth: 960, margin: "0 auto", width: "100%" }}>
         <div style={{ marginBottom: 28 }}>
           <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-0.01em" }}>
-            Plataforma Ale
+            SigMax360
           </h1>
           <p style={{ margin: "4px 0 0", color: "var(--ink-soft)" }}>
             Hola {user.full_name} — selecciona un módulo
