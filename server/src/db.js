@@ -1,6 +1,8 @@
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import bcrypt from "bcryptjs";
+import { demoUsers } from "./demoUsers.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dbPath = path.join(__dirname, "..", "data.sqlite");
@@ -122,6 +124,22 @@ CREATE TABLE IF NOT EXISTS documentos (
   uploaded_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 `);
+
+// Primer arranque con base de datos vacía (típico en un deploy nuevo, p.ej.
+// en Render, donde no hay forma de correr `npm run seed` a mano en el plan
+// gratuito): sembramos los usuarios de prueba automáticamente. Si la tabla
+// ya tiene usuarios (uso normal en local, o un deploy posterior), no toca
+// nada — así no pisa contraseñas que hayas cambiado a mano.
+const userCount = db.prepare("SELECT COUNT(*) AS count FROM users").get().count;
+if (userCount === 0) {
+  const insertUser = db.prepare(
+    `INSERT INTO users (username, password_hash, full_name, role) VALUES (?, ?, ?, ?)`
+  );
+  for (const u of demoUsers) {
+    insertUser.run(u.username, bcrypt.hashSync(u.password, 10), u.full_name, u.role);
+  }
+  console.log("Base de datos vacía: se sembraron los usuarios de prueba automáticamente.");
+}
 
 // --- Table registry for generic CRUD endpoints --------------------------
 // Every entry maps a REST resource name to its SQL table, the module that
