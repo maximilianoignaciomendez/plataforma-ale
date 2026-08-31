@@ -1,0 +1,569 @@
+:root {
+  --bg: #f2f4f7;
+  --panel: #ffffff;
+  --ink: #1b2030;
+  --ink-soft: #5b6376;
+  --border: #e3e6ec;
+  --header-bg: #14161c;
+
+  --produccion: #1f8a3b;
+  --produccion-soft: #e8f6ec;
+  --logistica: #1f5fbf;
+  --logistica-soft: #e9f0fc;
+  --sig: #c22630;
+  --sig-soft: #fbeaec;
+  --gerencia: #6b3fa0;
+  --gerencia-soft: #f1e9f8;
+  --admin: #b8860b;
+  --admin-soft: #faf3e0;
+
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(20, 22, 28, 0.08), 0 1px 2px rgba(20, 22, 28, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Layout ------------------------------------------------------------- */
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar-brand {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-brand small {
+  display: block;
+  font-weight: 400;
+  color: #b7bcc8;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+}
+
+.topbar-user .role-pill {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-logout:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 18px 10px;
+  flex-shrink: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  margin-bottom: 2px;
+}
+
+.sidebar a:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.sidebar a.active {
+  background: var(--accent-soft, var(--bg));
+  color: var(--accent, var(--ink));
+  font-weight: 600;
+}
+
+.sidebar .sidebar-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9aa1b0;
+  padding: 8px 12px 6px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 28px 48px;
+  overflow-y: auto;
+}
+
+/* Module theming ------------------------------------------------------- */
+.theme-produccion { --accent: var(--produccion); --accent-soft: var(--produccion-soft); }
+.theme-logistica { --accent: var(--logistica); --accent-soft: var(--logistica-soft); }
+.theme-sig { --accent: var(--sig); --accent-soft: var(--sig-soft); }
+.theme-gerencia { --accent: var(--gerencia); --accent-soft: var(--gerencia-soft); }
+.theme-admin_finanzas { --accent: var(--admin); --accent-soft: var(--admin-soft); }
+
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.module-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.module-header h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.module-header p {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+/* Cards / grid ---------------------------------------------------------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.hub-tile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.hub-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(20, 22, 28, 0.12);
+}
+
+.hub-tile .icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.hub-tile .tile-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.hub-tile .tile-desc {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.landing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.landing-card {
+  border-radius: var(--radius);
+  padding: 22px;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 130px;
+  justify-content: flex-end;
+  box-shadow: var(--shadow);
+}
+
+.landing-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.landing-card span {
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+/* Forms ------------------------------------------------------------------ */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row input[type="date"],
+.form-row select,
+.form-row textarea {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 160px;
+}
+
+.form-row textarea {
+  min-width: 260px;
+  min-height: 60px;
+  flex: 1;
+}
+
+.form-row label {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkbox-label {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 6px !important;
+}
+
+.textarea-label {
+  flex: 1 1 100%;
+}
+
+.textarea-label textarea {
+  width: 100%;
+  min-width: 100%;
+  resize: vertical;
+  font: inherit;
+}
+
+.btn {
+  background: var(--accent, #1f5fbf);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+  align-self: flex-end;
+  height: 38px;
+}
+
+.btn:hover {
+  filter: brightness(0.92);
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+}
+
+.btn.danger {
+  background: #c22630;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  height: auto;
+}
+
+/* Table -------------------------------------------------------------- */
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+table.data-table th, table.data-table td {
+  text-align: left;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+table.data-table th {
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+table.data-table td.cell-wrap {
+  white-space: pre-wrap;
+  max-width: 420px;
+}
+
+table.data-table tr:hover td {
+  background: var(--bg);
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge.ok { background: var(--produccion-soft); color: var(--produccion); }
+.badge.warn { background: var(--admin-soft); color: var(--admin); }
+.badge.off { background: #eef0f4; color: var(--ink-soft); }
+
+.doc-id-badge {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Progress bar --------------------------------------------------------- */
+.progress-block {
+  margin-bottom: 18px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.progress-track {
+  height: 14px;
+  background: #eef0f4;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent, #1f5fbf);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* Login -------------------------------------------------------------- */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #14161c, #262c3d);
+}
+
+.login-card {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 36px 34px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.login-card h1 {
+  font-size: 1.3rem;
+  margin: 0 0 2px;
+}
+
+.login-card p {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin: 0 0 22px;
+}
+
+.login-field {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-field label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.login-field input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.login-error {
+  background: var(--sig-soft);
+  color: var(--sig);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.login-demo {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 26px 0 12px;
+}
+
+.empty-state {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  padding: 18px 0;
+}
+
+.wip-banner {
+  background: var(--admin-soft);
+  color: var(--admin);
+  border: 1px dashed var(--admin);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+.doc-search {
+  margin: 16px 0 10px;
+}
+
+.doc-search input {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.doc-table td.doc-name {
+  font-weight: 600;
+}
+
+.doc-table td.doc-meta {
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.doc-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.subtype-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.subtype-tab {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.subtype-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
