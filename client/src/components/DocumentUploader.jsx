@@ -136,6 +136,7 @@ export default function DocumentUploader({ modulo, seccion, subtipos, idPrefix }
       ) : filteredRows.length === 0 ? (
         <div className="empty-state">Ningún documento coincide con "{search}".</div>
       ) : (
+        <div className="table-scroll">
         <table className="data-table doc-table">
           <thead>
             <tr>
@@ -166,6 +167,7 @@ export default function DocumentUploader({ modulo, seccion, subtipos, idPrefix }
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

@@ -105,6 +105,7 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix, s
       ) : rows.length === 0 ? (
         <div className="empty-state">{emptyMessage || "Aún no hay registros."}</div>
       ) : (
+        <div className="table-scroll">
         <table className="data-table">
           <thead>
             <tr>
@@ -143,6 +144,7 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix, s
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
