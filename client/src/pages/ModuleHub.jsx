@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout.jsx";
+import Icon from "../components/icons.jsx";
 import { MODULES } from "../moduleConfig.js";
 
 export default function ModuleHub({ moduleKey }) {
@@ -16,9 +17,10 @@ export default function ModuleHub({ moduleKey }) {
       <div className="hub-grid">
         {mod.sections.map((s) => (
           <Link key={s.key} to={`${mod.basePath}/${s.path}`} className="hub-tile">
-            <div className="icon">{s.label.charAt(0)}</div>
+            <div className="icon">
+              <Icon name={s.key} size={16} />
+            </div>
             <div className="tile-title">{s.label}</div>
-            <div className="tile-desc">{s.desc}</div>
           </Link>
         ))}
       </div>

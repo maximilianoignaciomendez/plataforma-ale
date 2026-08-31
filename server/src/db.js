@@ -125,6 +125,14 @@ CREATE TABLE IF NOT EXISTS documentos (
 );
 `);
 
+// Limpieza de una columna "descripcion" que se agregó por error a
+// planificacion_diaria en una iteración anterior (la descripción real vive
+// en la tabla "documentos", asociada al archivo subido, no acá).
+const planificacionColumns = db.prepare("PRAGMA table_info(planificacion_diaria)").all();
+if (planificacionColumns.some((c) => c.name === "descripcion")) {
+  db.exec("ALTER TABLE planificacion_diaria DROP COLUMN descripcion");
+}
+
 // Primer arranque con base de datos vacía (típico en un deploy nuevo, p.ej.
 // en Render, donde no hay forma de correr `npm run seed` a mano en el plan
 // gratuito): sembramos los usuarios de prueba automáticamente. Si la tabla

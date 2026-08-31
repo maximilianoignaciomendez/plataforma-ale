@@ -140,7 +140,7 @@ export default function DocumentUploader({ modulo, seccion, subtipos, idPrefix }
           <thead>
             <tr>
               <th>Nombre Documento</th>
-              <th>ID</th>
+              <th className="id-cell">ID</th>
               <th>Detalle</th>
               <th></th>
             </tr>
@@ -149,9 +149,7 @@ export default function DocumentUploader({ modulo, seccion, subtipos, idPrefix }
             {filteredRows.map((doc) => (
               <tr key={doc.id}>
                 <td className="doc-name">{doc.nombre_original}</td>
-                <td>
-                  <span className="badge off doc-id-badge">{formatId(idPrefix, doc.id)}</span>
-                </td>
+                <td className="id-cell">{formatId(idPrefix, doc.id)}</td>
                 <td className="doc-meta">
                   {doc.descripcion ? `${doc.descripcion} · ` : ""}
                   {doc.uploaded_by} · {formatDate(doc.uploaded_at)}

@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { MODULES } from "../moduleConfig.js";
+import Icon from "./icons.jsx";
 
 const ROLE_LABEL = {
   produccion: "Producción",
@@ -40,6 +41,7 @@ export default function Layout({ moduleKey, children }) {
           <nav className="sidebar">
             <div className="sidebar-title">{mod.title}</div>
             <NavLink to={mod.basePath} end className={({ isActive }) => (isActive ? "active" : "")}>
+              <Icon name="home" />
               Inicio del módulo
             </NavLink>
             {mod.sections.map((s) => (
@@ -48,6 +50,7 @@ export default function Layout({ moduleKey, children }) {
                 to={`${mod.basePath}/${s.path}`}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
+                <Icon name={s.key} />
                 {s.label}
               </NavLink>
             ))}

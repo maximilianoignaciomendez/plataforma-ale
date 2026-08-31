@@ -15,11 +15,15 @@ export default function Home() {
   }
 
   return (
-    <div className="login-screen" style={{ alignItems: "flex-start", padding: "48px 24px" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", padding: "48px 24px" }}>
       <div style={{ maxWidth: 960, margin: "0 auto", width: "100%" }}>
-        <div style={{ color: "#fff", marginBottom: 24 }}>
-          <h1 style={{ margin: 0 }}>Plataforma Ale</h1>
-          <p style={{ opacity: 0.8 }}>Hola {user.full_name} — selecciona un módulo</p>
+        <div style={{ marginBottom: 28 }}>
+          <h1 style={{ margin: 0, fontSize: "1.5rem", fontWeight: 600, letterSpacing: "-0.01em" }}>
+            Plataforma Ale
+          </h1>
+          <p style={{ margin: "4px 0 0", color: "var(--ink-soft)" }}>
+            Hola {user.full_name} — selecciona un módulo
+          </p>
         </div>
         <div className="landing-grid">
           {moduleKeys.map((key) => {

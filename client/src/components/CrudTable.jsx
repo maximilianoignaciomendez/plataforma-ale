@@ -4,7 +4,7 @@ import api from "../api/client.js";
 // Generic table CRUD widget: fetches /api/tables/:resource, renders an add
 // form based on `columns`, and lists rows with inline checkbox toggles and
 // delete. Reused by every module section backed by a simple database table.
-export default function CrudTable({ resource, columns, emptyMessage, idPrefix }) {
+export default function CrudTable({ resource, columns, emptyMessage, idPrefix, showCreatedBy = true }) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -12,7 +12,9 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix })
 
   function initialForm(cols) {
     const f = {};
-    cols.forEach((c) => (f[c.key] = c.type === "checkbox" ? false : ""));
+    cols
+      .filter((c) => c.type !== "computed")
+      .forEach((c) => (f[c.key] = c.type === "checkbox" ? false : ""));
     return f;
   }
 
@@ -59,7 +61,9 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix })
   return (
     <div className="card">
       <form className="form-row" onSubmit={handleSubmit}>
-        {columns.map((c) =>
+        {columns
+          .filter((c) => c.type !== "computed")
+          .map((c) =>
           c.type === "checkbox" ? (
             <label key={c.key} className="checkbox-label">
               <input
@@ -104,11 +108,11 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix })
         <table className="data-table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th className="id-cell">ID</th>
               {columns.map((c) => (
                 <th key={c.key}>{c.label}</th>
               ))}
-              <th>Registrado por</th>
+              {showCreatedBy && <th>Registrado por</th>}
               <th>Fecha de ingreso</th>
               <th></th>
             </tr>
@@ -116,9 +120,7 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix })
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
-                <td>
-                  <span className="badge off doc-id-badge">{formatId(idPrefix, row.id)}</span>
-                </td>
+                <td className="id-cell">{formatId(idPrefix, row.id)}</td>
                 {columns.map((c) =>
                   c.type === "checkbox" ? (
                     <td key={c.key}>
@@ -126,11 +128,13 @@ export default function CrudTable({ resource, columns, emptyMessage, idPrefix })
                     </td>
                   ) : c.type === "textarea" ? (
                     <td key={c.key} className="cell-wrap">{row[c.key]}</td>
+                  ) : c.type === "computed" ? (
+                    <td key={c.key}>{c.render(row)}</td>
                   ) : (
                     <td key={c.key}>{row[c.key]}</td>
                   )
                 )}
-                <td>{row.created_by || "-"}</td>
+                {showCreatedBy && <td>{row.created_by || "-"}</td>}
                 <td>{formatDate(row.created_at)}</td>
                 <td>
                   <button className="btn danger btn-sm" onClick={() => remove(row.id)}>Eliminar</button>

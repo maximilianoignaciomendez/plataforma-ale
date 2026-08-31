@@ -27,6 +27,11 @@ export default function Login() {
   return (
     <div className="login-screen">
       <form className="login-card" onSubmit={handleSubmit}>
+        <div className="login-mark">
+          <span className="login-dot" style={{ background: "var(--produccion)" }} />
+          <span className="login-dot" style={{ background: "var(--logistica)" }} />
+          <span className="login-dot" style={{ background: "var(--sig)" }} />
+        </div>
         <h1>Plataforma Ale</h1>
         <p>Producción · Logística y Mantenimiento · SIG</p>
 
@@ -43,12 +48,6 @@ export default function Login() {
         <button className="btn" type="submit" disabled={loading} style={{ width: "100%" }}>
           {loading ? "Ingresando..." : "Ingresar"}
         </button>
-
-        <div className="login-demo">
-          Cada usuario ingresa solo a su módulo. Cuentas de prueba (ver README):
-          <br />
-          produccion / logistica / sig / adminfinanzas / gerencia
-        </div>
       </form>
     </div>
   );
